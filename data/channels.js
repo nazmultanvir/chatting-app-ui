@@ -1,14 +1,14 @@
 const channels = [
   {
-    channelId: 1,
+    channelId: 'General',
     name: 'General Channel',
   },
   {
-    channelId: 2,
+    channelId: 'Technology',
     name: 'Technology Channel',
   },
   {
-    channelId: 3,
+    channelId: 'LGTM',
     name: 'LGTM Channel',
   },
 ];

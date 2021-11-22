@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   Image,
   ScrollView,
 } from 'react-native';
+import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
 import MainWrapper from '../../components/MainWrapper';
 import Header from '../../components/Header';
 import ChattingCard from '../../components/ChattingCard';
@@ -56,9 +57,25 @@ let demoMessage = [
   },
 ];
 
-export default function ChattingDetails({route, navigation}) {
+function ChattingDetails({route, navigation}) {
   const {channelName, channelId, userId} = route.params;
   const [chatText, setChatText] = useState('');
+  // useEffect(() => {
+  //   fetchLatestMessages();
+  // }, [channelId, userId]);
+  const fetchLatestMessages = () => {
+    const fetchLatestMessagesQuery = gql`
+      query {
+        fetchLatestMessages(channelId: ${channelId}) {
+          userId
+          text
+          datetime
+          messageId
+        }
+      }
+    `;
+  };
+
   return (
     <MainWrapper>
       <Header title={channelName ? channelName : ''} backKey />
@@ -92,3 +109,5 @@ export default function ChattingDetails({route, navigation}) {
     </MainWrapper>
   );
 }
+
+export default ChattingDetails;
